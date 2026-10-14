@@ -1,0 +1,29 @@
+# --- Fichiers crees a l'execution, a cote de multiprise.py ---
+multiprise_config.json
+multiprise_config.json.tmp
+multiprise_config.json.illisible
+flux_*.log
+
+# --- Executable et artefacts PyInstaller (construire_exe.bat) ---
+Multiprise.exe
+build/
+dist/
+*.spec
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- Systeme / editeurs ---
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# --- Tests : jamais publies (ils restent sur le disque) ---
+tests/
+test_*.py
+*_test.py
+essai*.py
