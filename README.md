@@ -4,7 +4,7 @@
 
 **Un port écouté, plusieurs programmes servis.**
 
-![Version](https://img.shields.io/badge/version-3.4-2ea44f)
+![Version](https://img.shields.io/badge/version-3.5-2ea44f)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white)
 ![tkinter](https://img.shields.io/badge/interface-tkinter-3776AB?logo=python&logoColor=white)
 ![NMEA 0183](https://img.shields.io/badge/flux-NMEA%200183%20%2F%20UDP-0a7ea4)
@@ -47,7 +47,7 @@ NMEA (réseau bord) --> [4001] MULTIPRISE --> 127.0.0.1:4101     Allure
                                          --> 192.168.1.50:4001  autre PC
 ```
 
-Version actuelle : 3.4 — l'historique des livraisons est dans
+Version actuelle : 3.5 — l'historique des livraisons est dans
 [CHANGELOG.md](CHANGELOG.md).
 
 ## Sommaire
@@ -137,6 +137,7 @@ git clone https://github.com/theptitprince/Multiprise.git C:\Multiprise
 | `construire_exe.bat` | construit `Multiprise.exe`, autonome (voir « Construire un exécutable ») |
 | `CHANGELOG.md` | l'historique des versions |
 | `LICENSE` | le texte de la licence (voir « Licence ») |
+| `NOTICE` | les conditions additionnelles de la licence (article 7) : la mention à conserver |
 
 `multiprise.py` est organisé en sections :
 
@@ -147,7 +148,7 @@ git clone https://github.com/theptitprince/Multiprise.git C:\Multiprise
 | `App` | la fenêtre principale : tableaux, journal, zone de notification, enregistrement des réglages |
 | `PriseDialog`, `SortieDialog`, `SerieDialog` | la configuration d'une prise, d'une sortie, des sorties en série |
 | `MonitorWindow` | la fenêtre Flux : ce qui passe sur une prise, en clair |
-| `OptionsDialog` | les options et les actions rares |
+| `OptionsDialog` | les options, les actions rares et la section « À propos » (version, mention d'origine, licence) |
 
 Placez `multiprise.py` **dans son propre dossier** : il y range sa
 configuration (voir « Ce que le programme crée à côté de lui »).
@@ -441,6 +442,15 @@ un flux rapide.
 
 Deux actions : *Relancer l'écoute (F5)* et *Quitter la multiprise*.
 
+La fenêtre s'intitule *Options et à propos* : sa section **À propos** donne
+la version, la mention d'origine « Multiprise, par ETDEL —
+https://github.com/theptitprince/Multiprise » (un clic ouvre la page du
+dépôt), le copyright, la licence (GPL v3 ou ultérieure, avec les conditions
+additionnelles du fichier `NOTICE`), l'absence de garantie, et les adresses
+où lire la licence et ces conditions : `Multiprise.exe`, copié seul, n'a ni
+`LICENSE` ni `NOTICE` à côté de lui. La même mention est écrite dans le
+journal à chaque démarrage (voir « Licence »).
+
 ### Les raccourcis
 
 | Touche | Action |
@@ -603,9 +613,27 @@ même licence, avec son code source et la mention de copyright. Le programme
 est fourni **sans aucune garantie** : il répartit les trames qu'il reçoit,
 il ne remplace ni votre vigilance ni vos instruments de navigation.
 
+### Conditions additionnelles (article 7)
+
+La GPL v3 permet à l'auteur d'ajouter quelques conditions (article 7). Celles de Multiprise sont dans
+le fichier [`NOTICE`](NOTICE), en français et en anglais :
+
+- **Attribution** : toute copie ou version modifiée doit garder, visible pour l'utilisateur
+  (fenêtre « À propos » ou équivalent) et dans sa documentation, la mention :
+
+  > Multiprise, par ETDEL — https://github.com/theptitprince/Multiprise
+
+  Une version modifiée peut la faire précéder de « D'après » et ajouter ses propres crédits,
+  sans la retirer ni la masquer.
+- **Origine** : une version modifiée doit dire clairement qu'elle est modifiée, et ne doit se
+  présenter ni comme l'original, ni comme approuvée par ETDEL.
+
+Dans Multiprise, cette mention s'affiche dans la fenêtre *Options* (section « A propos ») et dans le journal au démarrage.
+
 Le texte intégral de la licence est dans le fichier `LICENSE` du dépôt et
-sur <https://www.gnu.org/licenses/gpl-3.0.html>. Le fichier source
-`multiprise.py` porte l'en-tête de licence correspondant.
+sur <https://www.gnu.org/licenses/gpl-3.0.html>. Chaque fichier source
+(`multiprise.py` et les trois `.bat`) porte un en-tête qui renvoie à
+`LICENSE` et `NOTICE`.
 
 ---
 

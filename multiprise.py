@@ -13,6 +13,10 @@
 #
 # Vous devriez avoir recu une copie de la GNU General Public License avec ce
 # programme (fichier LICENSE). Sinon, voir <https://www.gnu.org/licenses/>.
+#
+# Multiprise, par ETDEL -- https://github.com/theptitprince/Multiprise
+# Licence GPL-3.0-or-later avec conditions additionnelles (article 7) :
+# voir le fichier NOTICE, qui impose de conserver la mention ci-dessus.
 """
 multiprise.py -- "Multiprise NMEA"
 ==================================
@@ -92,11 +96,31 @@ import sys
 import threading
 import time
 import tkinter as tk
+import webbrowser
 from collections import deque
 from tkinter import ttk, messagebox, filedialog
 
 APP_TITLE = "Multiprise NMEA"
-APP_VERSION = "3.4"
+APP_VERSION = "3.5"
+
+# Mention d'origine : les conditions additionnelles de la licence (GPL v3,
+# article 7 b et c, fichier NOTICE) imposent de la garder, visible, dans
+# toute copie ou version modifiee. Elle s'affiche dans les options (section
+# A PROPOS) et dans le journal, au demarrage. APP_TITLE reste a part : il
+# nomme aussi le fichier du dossier Demarrage (_startup_bat_path).
+APP_NOM = "Multiprise"
+APP_DEPOT = "https://github.com/theptitprince/Multiprise"
+APP_MENTION = f"{APP_NOM}, par ETDEL \u2014 {APP_DEPOT}"
+
+# Mentions legales de la section A PROPOS. Des adresses plutot que des noms
+# de fichiers : Multiprise.exe voyage seul, sans LICENSE ni NOTICE a cote.
+APP_COPYRIGHT = "Copyright \u00a9 2026 ETDEL"
+APP_LICENCE_URL = "https://www.gnu.org/licenses/gpl-3.0.html"
+APP_NOTICE_URL = f"{APP_DEPOT}/blob/main/NOTICE"
+APP_LICENCE_TEXTE = ("Logiciel libre : GNU GPL version 3 ou ulterieure, avec des\n"
+                     "conditions additionnelles (article 7, fichier NOTICE).\n"
+                     "Fourni SANS AUCUNE GARANTIE.")
+APP_ORIGINE_TEXTE = "Une version modifiee doit le dire et ne pas se presenter comme l'original."
 
 # En exe autonome (PyInstaller), __file__ designe le dossier TEMPORAIRE ou
 # l'exe se deballe a chaque lancement, et qui est efface a la fermeture : la
@@ -134,6 +158,7 @@ FG_LABEL = "#d3dbe4"
 FG_DIM = "#8b99a8"
 ACCENT = "#2f6fc4"
 ACCENT_HOVER = "#3d82dc"
+FG_LIEN = "#6ea8fe"   # liens : ACCENT, trop sombre, se lirait mal en petit
 BORDER = "#333d49"
 COLOR_OK = "#4caf50"
 COLOR_WARN = "#e8a04a"
@@ -994,6 +1019,18 @@ def dark_label(parent, text, fg=None, font=None, bg=None):
                     font=font or FONT)
 
 
+def dark_link(parent, text, url, font=None):
+    """Libelle cliquable qui ouvre 'url' dans le navigateur. Souligne au
+    survol, pour qu'on le reconnaisse comme un lien."""
+    font = font or FONT
+    lbl = dark_label(parent, text, fg=FG_LIEN, font=font)
+    lbl.configure(cursor="hand2")
+    lbl.bind("<Button-1>", lambda _e: webbrowser.open(url))
+    lbl.bind("<Enter>", lambda _e: lbl.configure(font=font + ("underline",)))
+    lbl.bind("<Leave>", lambda _e: lbl.configure(font=font))
+    return lbl
+
+
 def section_header(parent, titre):
     """Titre de section. Volontairement discret -- gris, petit, lettres
     espacees : un intitule de colonne ne doit pas peser autant que les
@@ -1666,12 +1703,16 @@ def _hhmmss(t):
 
 class OptionsDialog(tk.Toplevel):
     """Les quatre reglages generaux, plus les actions rares (relance,
-    quitter). Tout ce qui vivait dans la barre de menus tient ici."""
+    quitter) et la section A PROPOS : version et mentions legales (mention
+    d'origine, licence, absence de garantie). Tout ce qui vivait dans la
+    barre de menus tient ici. A PROPOS reste dans ce dialogue modal plutot
+    que dans une fenetre a part, qui devrait lui prendre la main (grab) puis
+    la lui rendre."""
 
     def __init__(self, app):
         super().__init__(app)
         self.app = app
-        self.title("Options")
+        self.title("Options et a propos")
         self.configure(bg=BG_PANEL)
         self.resizable(False, False)
         self.transient(app)
@@ -1698,12 +1739,30 @@ class OptionsDialog(tk.Toplevel):
         tool_button(ligne, "Quitter la multiprise", self._quit).pack(side="left", padx=6)
 
         ttk.Separator(body, orient="horizontal").pack(fill="x", pady=14)
-        dark_label(body, f"{APP_TITLE} v{APP_VERSION}   \u00b7   ETDEL 2026",
-                   fg=FG_DIM, font=FONT_MONO_S).pack(anchor="w")
-        dark_label(body, "Les datagrammes sont recopies octet pour octet ; les\n"
-                         "programmes clients voient la multiprise comme expediteur\n"
-                         "(127.0.0.1 en local).", fg=FG_DIM,
-                   font=FONT_MONO_S, ).pack(anchor="w", pady=(4, 0))
+        dark_label(body, "A PROPOS", fg=FG_DIM, font=FONT_SMALL).pack(
+            anchor="w", pady=(0, 8))
+        dark_label(body, f"{APP_TITLE} v{APP_VERSION}", font=FONT_BOLD).pack(anchor="w")
+        dark_link(body, APP_MENTION, APP_DEPOT).pack(anchor="w")
+
+        def note(texte, pady=(0, 0)):
+            lbl = dark_label(body, texte, fg=FG_DIM, font=FONT_MONO_S)
+            lbl.configure(justify="left")
+            lbl.pack(anchor="w", pady=pady)
+
+        # Section compacte (lignes pleines, etiquettes regroupees) : le
+        # dialogue n'est pas redimensionnable et doit tenir, bouton Fermer
+        # compris, sur un petit ecran (1366 x 768 a 125 %, barre des taches).
+        note(APP_COPYRIGHT + "\n" + APP_LICENCE_TEXTE, pady=(8, 0))
+        # Colonnes alignees : la police est a chasse fixe.
+        for titre, url in (("Licence    : ", APP_LICENCE_URL),
+                           ("Conditions : ", APP_NOTICE_URL)):
+            ligne = tk.Frame(body, bg=BG_PANEL)
+            ligne.pack(anchor="w")
+            dark_label(ligne, titre, fg=FG_DIM, font=FONT_MONO_S).pack(side="left")
+            dark_link(ligne, url, url, font=FONT_MONO_S).pack(side="left")
+        note(APP_ORIGINE_TEXTE)
+        note("Les datagrammes sont recopies octet pour octet ; les programmes clients\n"
+             "voient la multiprise comme expediteur (127.0.0.1 en local).", pady=(8, 0))
 
         foot = tk.Frame(self, bg=BG_NAV)
         foot.pack(fill="x")
@@ -1779,6 +1838,7 @@ class App(tk.Tk):
         self.protocol("WM_DELETE_WINDOW", self._on_close)
 
         self.log(f"{APP_TITLE} v{APP_VERSION} demarre", "info")
+        self.log(APP_MENTION, "info")
         if alerte:
             self.log(alerte, "err")
         for probleme in self._validate(self._prises()):

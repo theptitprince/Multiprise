@@ -1,6 +1,9 @@
 @echo off
 rem Multiprise -- repartiteur de flux UDP (NMEA 0183) pour Windows
 rem Copyright (C) 2026 ETDEL -- GPL-3.0-or-later (voir LICENSE)
+rem Multiprise, par ETDEL -- https://github.com/theptitprince/Multiprise
+rem Licence GPL-3.0-or-later avec conditions additionnelles (article 7) :
+rem voir le fichier NOTICE, qui impose de conserver la mention ci-dessus.
 rem
 rem Installe ce qui manque pour faire tourner multiprise.py :
 rem   1. Python 3.8 ou plus recent, avec tkinter : verifies seulement. Ils

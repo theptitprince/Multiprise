@@ -20,6 +20,38 @@ comportement du programme.
 
 ---
 
+## 3.5
+
+Multiprise dit d'où elle vient. Elle reste un logiciel libre (GPL v3 ou
+ultérieure) ; des conditions additionnelles (article 7) demandent à toute
+copie ou version modifiée de garder visible la mention d'origine, et à une
+version modifiée de dire qu'elle l'est. La répartition des flux, la fenêtre
+principale et la configuration ne changent pas.
+
+### Ajouté
+
+- **`NOTICE`** : les conditions additionnelles de la licence (article 7 b
+  et c), en français et en anglais — garder, visible, la mention
+  « Multiprise, par ETDEL — https://github.com/theptitprince/Multiprise »
+  dans toute copie ou version modifiée ; une version modifiée doit le dire.
+- **Section *À propos* dans les options**, fenêtre renommée *Options et à
+  propos* : version, mention d'origine (un clic ouvre la page du dépôt),
+  copyright, licence, absence de garantie, et les adresses où lire la
+  licence et les conditions — `Multiprise.exe`, copié seul, n'a ni
+  `LICENSE` ni `NOTICE` à côté de lui.
+- **Mention d'origine au journal**, à chaque démarrage, juste après la
+  ligne de version.
+- **En-tête des sources** : `multiprise.py` et les trois `.bat` portent la
+  mention et renvoient au fichier `NOTICE`.
+
+### Modifié
+
+- **Section Licence des README** (français et anglais) : les conditions
+  additionnelles, la mention à conserver et l'endroit où le programme
+  l'affiche.
+- La ligne « version · ETDEL 2026 » du bas des options laisse la place à la
+  section *À propos*.
+
 ## 3.4
 
 Première version publiée. Elle ajoute les scripts d'installation et de

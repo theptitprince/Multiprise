@@ -4,7 +4,7 @@
 
 **One port listened to, several programs served.**
 
-![Version](https://img.shields.io/badge/version-3.4-2ea44f)
+![Version](https://img.shields.io/badge/version-3.5-2ea44f)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white)
 ![tkinter](https://img.shields.io/badge/interface-tkinter-3776AB?logo=python&logoColor=white)
 ![NMEA 0183](https://img.shields.io/badge/stream-NMEA%200183%20%2F%20UDP-0a7ea4)
@@ -49,7 +49,7 @@ NMEA (réseau bord) --> [4001] MULTIPRISE --> 127.0.0.1:4101     Allure
                                          --> 192.168.1.50:4001  autre PC
 ```
 
-Current version: 3.4 — the release history is in
+Current version: 3.5 — the release history is in
 [CHANGELOG.md](CHANGELOG.md) (in French).
 
 ## Contents
@@ -139,6 +139,7 @@ git clone https://github.com/theptitprince/Multiprise.git C:\Multiprise
 | `construire_exe.bat` | builds `Multiprise.exe`, standalone (see "Building an executable") |
 | `CHANGELOG.md` | the version history (in French) |
 | `LICENSE` | the text of the license (see "License") |
+| `NOTICE` | the additional license terms (section 7): the notice to keep |
 
 `multiprise.py` is organized in sections:
 
@@ -149,7 +150,7 @@ git clone https://github.com/theptitprince/Multiprise.git C:\Multiprise
 | `App` | the main window: tables, log, notification area, saving of the settings |
 | `PriseDialog`, `SortieDialog`, `SerieDialog` | the configuration of a socket, of an output, of a series of outputs |
 | `MonitorWindow` | the Flux (stream) window: what passes through a socket, in plain text |
-| `OptionsDialog` | the options and the rarely used actions |
+| `OptionsDialog` | the options, the rarely used actions and the *À propos* (about) section (version, origin notice, license) |
 
 Place `multiprise.py` **in its own folder**: it keeps its configuration
 there (see "What the program creates next to itself").
@@ -450,6 +451,15 @@ distribution, even on a fast stream.
 Two actions: *Relancer l'écoute (F5)* (restart listening) and *Quitter la
 multiprise*.
 
+The window is titled *Options et à propos* (options and about): its
+**À propos** section gives the version, the origin notice "Multiprise, par
+ETDEL — https://github.com/theptitprince/Multiprise" (a click opens the
+repository page), the copyright, the license (GPL v3 or later, with the
+additional terms of the `NOTICE` file), the absence of warranty, and the
+addresses where the license and these terms can be read: `Multiprise.exe`,
+copied alone, has neither `LICENSE` nor `NOTICE` next to it. The same
+notice is written in the log at each startup (see "License").
+
 ### Keyboard shortcuts
 
 | Key | Action |
@@ -617,9 +627,27 @@ license, with its source code and the copyright notice. The program is
 provided **without any warranty**: it distributes the frames it receives;
 it replaces neither your vigilance nor your navigation instruments.
 
+### Additional terms (section 7)
+
+The GPL v3 lets the author add a few terms (section 7). Multiprise's are in the
+[`NOTICE`](NOTICE) file, in French and in English:
+
+- **Attribution**: every copy or modified version must keep, visible to the user (an "About"
+  window or equivalent) and in its documentation, the notice:
+
+  > Multiprise, par ETDEL — https://github.com/theptitprince/Multiprise
+
+  A modified version may prefix it with "D'après" (or "Based on") and add its own credits,
+  but may neither remove nor hide it.
+- **Origin**: a modified version must state clearly that it has been modified, and must not
+  present itself as the original or as endorsed by ETDEL.
+
+In Multiprise, this notice is shown in the *Options* window (*A propos* section) and in the log at startup.
+
 The full text of the license is in the `LICENSE` file of the repository and
-at <https://www.gnu.org/licenses/gpl-3.0.html>. The source file
-`multiprise.py` carries the corresponding license header.
+at <https://www.gnu.org/licenses/gpl-3.0.html>. Each source file
+(`multiprise.py` and the three `.bat` files) carries a header that points
+to `LICENSE` and `NOTICE`.
 
 ---
 
